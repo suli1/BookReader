@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.justwayward.reader.R;
 import com.justwayward.reader.base.Constant;
 import com.justwayward.reader.bean.RankingList;
@@ -95,8 +96,13 @@ public class TopRankAdapter extends BaseExpandableListAdapter {
 
         ImageView ivCover = (ImageView) group.findViewById(R.id.ivRankCover);
         if (!TextUtils.isEmpty(groupArray.get(groupPosition).cover)) {
-            Glide.with(mContext).load(Constant.IMG_BASE_URL + groupArray.get(groupPosition).cover).placeholder(R.drawable.avatar_default)
-                    .transform(new GlideCircleTransform(mContext)).into(ivCover);
+            RequestOptions requestOptions = new RequestOptions()
+                    .placeholder(R.drawable.avatar_default)
+                    .transform(new GlideCircleTransform(mContext));
+            Glide.with(mContext)
+                    .setDefaultRequestOptions(requestOptions)
+                    .load(Constant.IMG_BASE_URL + groupArray.get(groupPosition).cover)
+                    .into(ivCover);
             group.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.yuyh.easyadapter.glide.GlideCircleTransform;
 import com.yuyh.easyadapter.glide.GlideRoundTransform;
 
@@ -169,19 +170,26 @@ abstract public class BaseViewHolder<M> extends RecyclerView.ViewHolder {
 
     public BaseViewHolder setImageUrl(int viewId, String imgUrl, int placeHolderRes) {
         ImageView view = getView(viewId);
-        Glide.with(mContext).load(imgUrl).placeholder(placeHolderRes).into(view);
+        RequestOptions requestOptions = new RequestOptions().placeholder(placeHolderRes);
+        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load(imgUrl).into(view);
         return this;
     }
 
     public BaseViewHolder setCircleImageUrl(int viewId, String imgUrl, int placeHolderRes) {
         ImageView view = getView(viewId);
-        Glide.with(mContext).load(imgUrl).placeholder(placeHolderRes) .transform(new GlideCircleTransform(mContext)).into(view);
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(placeHolderRes)
+                .transform(new GlideCircleTransform(mContext));
+        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load(imgUrl).into(view);
         return this;
     }
 
     public BaseViewHolder setRoundImageUrl(int viewId, String imgUrl, int placeHolderRes) {
         ImageView view = getView(viewId);
-        Glide.with(mContext).load(imgUrl).placeholder(placeHolderRes) .transform(new GlideRoundTransform(mContext)).into(view);
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(placeHolderRes)
+                .transform(new GlideRoundTransform(mContext));
+        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load(imgUrl).into(view);
         return this;
     }
 

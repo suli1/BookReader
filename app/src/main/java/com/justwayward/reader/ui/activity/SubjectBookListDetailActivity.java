@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.justwayward.reader.R;
 import com.justwayward.reader.base.BaseRVActivity;
 import com.justwayward.reader.base.Constant;
@@ -45,7 +46,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -56,15 +57,15 @@ public class SubjectBookListDetailActivity extends BaseRVActivity<BookListDetail
     private HeaderViewHolder headerViewHolder;
 
     static class HeaderViewHolder {
-        @Bind(R.id.tvBookListTitle)
+        @BindView(R.id.tvBookListTitle)
         TextView tvBookListTitle;
-        @Bind(R.id.tvBookListDesc)
+        @BindView(R.id.tvBookListDesc)
         TextView tvBookListDesc;
-        @Bind(R.id.ivAuthorAvatar)
+        @BindView(R.id.ivAuthorAvatar)
         ImageView ivAuthorAvatar;
-        @Bind(R.id.tvBookListAuthor)
+        @BindView(R.id.tvBookListAuthor)
         TextView tvBookListAuthor;
-        @Bind(R.id.btnShare)
+        @BindView(R.id.btnShare)
         TextView btnShare;
 
         public HeaderViewHolder(View view) {
@@ -140,10 +141,13 @@ public class SubjectBookListDetailActivity extends BaseRVActivity<BookListDetail
         headerViewHolder.tvBookListDesc.setText(data.getBookList().getDesc());
         headerViewHolder.tvBookListAuthor.setText(data.getBookList().getAuthor().getNickname());
 
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.avatar_default)
+                .transform(new GlideCircleTransform(mContext));
+
         Glide.with(mContext)
+                .setDefaultRequestOptions(requestOptions)
                 .load(Constant.IMG_BASE_URL + data.getBookList().getAuthor().getAvatar())
-                .placeholder(R.drawable.avatar_default)
-                .transform(new GlideCircleTransform(mContext))
                 .into(headerViewHolder.ivAuthorAvatar);
 
         List<BookListDetail.BookListBean.BooksBean> list = data.getBookList().getBooks();
@@ -215,7 +219,7 @@ public class SubjectBookListDetailActivity extends BaseRVActivity<BookListDetail
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(headerViewHolder);
+//        ButterKnife.unbind(headerViewHolder);
         if (mPresenter != null) {
             mPresenter.detachView();
         }

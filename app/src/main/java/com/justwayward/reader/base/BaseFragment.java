@@ -30,16 +30,18 @@ import com.justwayward.reader.component.AppComponent;
 import com.justwayward.reader.view.loadding.CustomDialog;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
 
     protected View parentView;
     protected FragmentActivity activity;
-    protected LayoutInflater inflater;
 
     protected Context mContext;
 
     private CustomDialog dialog;
+
+    private Unbinder unbinder;
 
     public abstract
     @LayoutRes
@@ -52,7 +54,6 @@ public abstract class BaseFragment extends Fragment {
         parentView = inflater.inflate(getLayoutResId(), container, false);
         activity = getSupportActivity();
         mContext = activity;
-        this.inflater = inflater;
         return parentView;
     }
 
@@ -60,7 +61,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         setupActivityComponent(ReaderApplication.getsInstance().getAppComponent());
         attachView();
         initDatas();
@@ -91,7 +92,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 
     public FragmentActivity getSupportActivity() {
@@ -101,10 +104,6 @@ public abstract class BaseFragment extends Fragment {
     public Context getApplicationContext() {
         return this.activity == null ? (getActivity() == null ? null : getActivity()
                 .getApplicationContext()) : this.activity.getApplicationContext();
-    }
-
-    protected LayoutInflater getLayoutInflater() {
-        return inflater;
     }
 
     protected View getParentView() {

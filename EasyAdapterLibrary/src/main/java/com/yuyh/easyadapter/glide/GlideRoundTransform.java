@@ -11,7 +11,13 @@ import android.graphics.RectF;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+
 public class GlideRoundTransform extends BitmapTransformation {
+    private static final String ID = GlideRoundTransform.class.getName();
+    private static final byte[] ID_BYTES = ID.getBytes();
+
     private static float radius = 0f;
 
     public GlideRoundTransform(Context context) {
@@ -43,8 +49,12 @@ public class GlideRoundTransform extends BitmapTransformation {
         return result;
     }
 
-    @Override
     public String getId() {
         return getClass().getName() + Math.round(radius);
+    }
+
+    @Override
+    public void updateDiskCacheKey(MessageDigest messageDigest) {
+        messageDigest.update(ID_BYTES);
     }
 }

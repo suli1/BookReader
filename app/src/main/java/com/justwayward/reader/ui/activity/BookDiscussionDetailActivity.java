@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.justwayward.reader.R;
 import com.justwayward.reader.base.BaseRVActivity;
 import com.justwayward.reader.base.Constant;
@@ -49,7 +50,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -84,21 +85,21 @@ public class BookDiscussionDetailActivity extends BaseRVActivity<CommentList.Com
     }
 
     static class HeaderViewHolder {
-        @Bind(R.id.ivBookCover)
+        @BindView(R.id.ivBookCover)
         ImageView ivAvatar;
-        @Bind(R.id.tvBookTitle)
+        @BindView(R.id.tvBookTitle)
         TextView tvNickName;
-        @Bind(R.id.tvTime)
+        @BindView(R.id.tvTime)
         TextView tvTime;
-        @Bind(R.id.tvTitle)
+        @BindView(R.id.tvTitle)
         TextView tvTitle;
-        @Bind(R.id.tvContent)
+        @BindView(R.id.tvContent)
         BookContentTextView tvContent;
-        @Bind(R.id.tvBestComments)
+        @BindView(R.id.tvBestComments)
         TextView tvBestComments;
-        @Bind(R.id.rvBestComments)
+        @BindView(R.id.rvBestComments)
         RecyclerView rvBestComments;
-        @Bind(R.id.tvCommentCount)
+        @BindView(R.id.tvCommentCount)
         TextView tvCommentCount;
 
         public HeaderViewHolder(View view) {
@@ -156,10 +157,12 @@ public class BookDiscussionDetailActivity extends BaseRVActivity<CommentList.Com
 
     @Override
     public void showBookDisscussionDetail(Disscussion disscussion) {
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.avatar_default)
+                .transform(new GlideCircleTransform(mContext));
         Glide.with(mContext)
+                .setDefaultRequestOptions(requestOptions)
                 .load(Constant.IMG_BASE_URL + disscussion.post.author.avatar)
-                .placeholder(R.drawable.avatar_default)
-                .transform(new GlideCircleTransform(mContext))
                 .into(headerViewHolder.ivAvatar);
 
         headerViewHolder.tvNickName.setText(disscussion.post.author.nickname);
@@ -210,7 +213,7 @@ public class BookDiscussionDetailActivity extends BaseRVActivity<CommentList.Com
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(headerViewHolder);
+//        ButterKnife.unbind(headerViewHolder);
         if (mPresenter != null) {
             mPresenter.detachView();
         }

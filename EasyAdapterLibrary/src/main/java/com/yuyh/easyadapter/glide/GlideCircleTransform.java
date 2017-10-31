@@ -9,7 +9,12 @@ import android.graphics.Paint;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
+import java.security.MessageDigest;
+
 public class GlideCircleTransform extends BitmapTransformation {
+    private static final String ID = GlideRoundTransform.class.getName();
+    private static final byte[] ID_BYTES = ID.getBytes();
+
     public GlideCircleTransform(Context context) {
         super(context);
     }
@@ -41,8 +46,12 @@ public class GlideCircleTransform extends BitmapTransformation {
         return result;
     }
 
-    @Override
     public String getId() {
         return getClass().getName();
+    }
+
+    @Override
+    public void updateDiskCacheKey(MessageDigest messageDigest) {
+        messageDigest.update(ID_BYTES);
     }
 }

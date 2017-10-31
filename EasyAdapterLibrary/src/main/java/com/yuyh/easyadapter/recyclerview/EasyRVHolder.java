@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.yuyh.easyadapter.glide.GlideCircleTransform;
 import com.yuyh.easyadapter.glide.GlideRoundTransform;
 import com.yuyh.easyadapter.helper.ViewHelper;
@@ -127,19 +128,25 @@ public class EasyRVHolder extends RecyclerView.ViewHolder implements ViewHelper.
 
     public EasyRVHolder setImageUrl(int viewId, String imgUrl, int placeHolderRes) {
         ImageView view = getView(viewId);
-        Glide.with(mContext).load(imgUrl).placeholder(placeHolderRes).into(view);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(placeHolderRes);
+        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load(imgUrl).into(view);
         return this;
     }
 
     public EasyRVHolder setCircleImageUrl(int viewId, String imgUrl, int placeHolderRes) {
         ImageView view = getView(viewId);
-        Glide.with(mContext).load(imgUrl).placeholder(placeHolderRes) .transform(new GlideCircleTransform(mContext)).into(view);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(placeHolderRes).transform(new GlideCircleTransform(mContext));
+        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load(imgUrl).into(view);
         return this;
     }
 
     public EasyRVHolder setRoundImageUrl(int viewId, String imgUrl, int placeHolderRes) {
         ImageView view = getView(viewId);
-        Glide.with(mContext).load(imgUrl).placeholder(placeHolderRes) .transform(new GlideRoundTransform(mContext)).into(view);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(placeHolderRes).transform(new GlideRoundTransform(mContext));
+        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load(imgUrl).into(view);
         return this;
     }
 

@@ -26,7 +26,8 @@ import com.justwayward.reader.view.SelectionLayout;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
+
 
 /**
  * 综合讨论区
@@ -42,7 +43,7 @@ public class BookDiscussionActivity extends BaseCommuniteActivity {
 
     private boolean mIsDiscussion;
 
-    @Bind(R.id.slOverall)
+    @BindView(R.id.slOverall)
     SelectionLayout slOverall;
 
     @Override
