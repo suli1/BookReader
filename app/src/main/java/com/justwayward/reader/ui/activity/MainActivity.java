@@ -100,8 +100,8 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
     private static final int BACK_PRESSED_INTERVAL = 2000;
 
     private LoginPopupWindow popupWindow;
-    public static Tencent mTencent;
-    public IUiListener loginListener;
+    private static Tencent mTencent;
+    private IUiListener loginListener;
     private GenderPopupWindow genderPopupWindow;
 
     @Override

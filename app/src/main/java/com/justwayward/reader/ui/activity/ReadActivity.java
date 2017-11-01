@@ -99,6 +99,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -206,7 +207,7 @@ public class ReadActivity extends BaseActivity implements BookReadContract.View 
     private ReadThemeAdapter gvAdapter;
     private Receiver receiver = new Receiver();
     private IntentFilter intentFilter = new IntentFilter();
-    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     public static final String INTENT_BEAN = "recommendBooksBean";
     public static final String INTENT_SD = "isFromSD";

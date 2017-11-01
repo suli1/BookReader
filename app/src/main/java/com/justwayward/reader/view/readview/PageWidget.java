@@ -512,7 +512,7 @@ public class PageWidget extends BaseReadView {
         Bitmap bg = ThemeManager.getThemeDrawable(theme);
         if (bg != null) {
             pagefactory.setBgBitmap(bg);
-            pagefactory.convertBetteryBitmap();
+            pagefactory.convertBatteryBitmap();
             if (isPrepared) {
                 pagefactory.onDraw(mCurrentPageCanvas);
                 pagefactory.onDraw(mNextPageCanvas);

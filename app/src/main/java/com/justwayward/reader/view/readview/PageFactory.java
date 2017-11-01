@@ -612,7 +612,7 @@ public class PageFactory {
             listener.onLoadChapterFailure(chapter);
     }
 
-    public void convertBetteryBitmap() {
+    public void convertBatteryBitmap() {
         batteryView = (ProgressBar) LayoutInflater.from(mContext).inflate(R.layout.layout_battery_progress, null);
         batteryView.setProgressDrawable(ContextCompat.getDrawable(mContext,
                 SettingManager.getInstance().getReadTheme() < 4 ?
@@ -632,7 +632,7 @@ public class PageFactory {
 
     public void setBattery(int battery) {
         this.battery = battery;
-        convertBetteryBitmap();
+        convertBatteryBitmap();
     }
 
     public void setTime(String time) {
